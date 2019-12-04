@@ -1,7 +1,8 @@
-package com.github.zworion.secretiveowner.item;
+package com.github.zworion.secretiveowner.block;
 
 import com.github.zworion.secretiveowner.SecretiveOwner;
 
+import net.minecraft.block.Block;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 
@@ -12,7 +13,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 
 /**
- * 物品模型注册类
+ * 方块的模型注册类
  *
  * @author ZWOrion
  * @version 1.0.0
@@ -25,24 +26,24 @@ import net.minecraftforge.fml.relauncher.Side;
 public final class ModelMapper {
 
     /**
-     * 注册物品模型
+     * 注册方块事件
      *
      * @param event 事件
      */
     @SubscribeEvent
     public static void onModelReg(ModelRegistryEvent event) {
-        registryModel(ItemLoader.goldenEgg);
+        registryModel(BlockLoader.grassBlock);
     }
 
     /**
-     * 加载、处理物品模型
+     * 加载和处理方块模型
      *
-     * @param item 物品
+     * @param block 方块
      */
-    private static void registryModel(Item item) {
-        ModelResourceLocation modelResourceLocation = new ModelResourceLocation(item.getRegistryName(), "inventory");
+    private static void registryModel(Block block) {
+        ModelResourceLocation modelResourceLocation = new ModelResourceLocation(block.getRegistryName(), "inventory");
 
-        ModelLoader.setCustomModelResourceLocation(item, 0, modelResourceLocation);
+        ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(block), 0, modelResourceLocation);
     }
 }
 

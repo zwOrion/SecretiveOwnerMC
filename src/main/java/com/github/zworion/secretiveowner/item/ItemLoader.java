@@ -1,28 +1,36 @@
 package com.github.zworion.secretiveowner.item;
 
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.event.ModelRegistryEvent;
-import net.minecraftforge.client.model.ModelLoader;
+
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+
+/**
+ * 物品的注册类
+ *
+ * @author ZWOrion
+ * @version 1.0.0
+ * @date 19/12/04
+ */
 @Mod.EventBusSubscriber(modid = "secretiveowner")
 public final class ItemLoader {
+
+    /**
+     * 金蛋
+     */
     public static Item goldenEgg = new ItemGoldenEgg();
 
-    public ItemLoader(FMLPreInitializationEvent event) {
-
-    }
-
+    /**
+     * 物品注册事件
+     *
+     * @param event 事件
+     */
     @SubscribeEvent
     public static void registerItem(RegistryEvent.Register<Item> event) {
         event.getRegistry().register(goldenEgg);
     }
-
-
 }
+
+
+//~ Formatted by Jindent --- http://www.jindent.com

@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "particle": "secretiveowner:blocks/grass_block",
+    "down": "secretiveowner:blocks/grass_block",
+    "up": "secretiveowner:blocks/grass_block",
+    "north": "secretiveowner:blocks/grass_block",
+    "south": "secretiveowner:blocks/grass_block",
+    "west": "secretiveowner:blocks/grass_block",
+    "east": "secretiveowner:blocks/grass_block"
+  }
+}
