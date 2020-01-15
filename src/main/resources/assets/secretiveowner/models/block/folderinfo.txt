@@ -1,0 +1,2 @@
+1. 存放方块的的模型描述 json 文件
+2. 指出其对应的材质路径（默认在 assets.secretiveowner.textures.blocks 路径下）

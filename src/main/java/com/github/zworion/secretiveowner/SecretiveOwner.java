@@ -1,5 +1,9 @@
 package com.github.zworion.secretiveowner;
 
+import com.github.zworion.secretiveowner.config.ConfigLoader;
+import com.github.zworion.secretiveowner.config.MyModConfigGuiFactory;
+import com.github.zworion.secretiveowner.event.EventLoader;
+import net.minecraftforge.common.MinecraftForge;
 import org.apache.logging.log4j.Logger;
 
 import com.github.zworion.secretiveowner.common.CommonProxy;
@@ -21,9 +25,10 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
  * @date 19/12/04
  */
 @Mod(
-    modid   = SecretiveOwner.MODID,
-    name    = SecretiveOwner.NAME,
-    version = SecretiveOwner.VERSION
+        modid = SecretiveOwner.MODID,
+        name = SecretiveOwner.NAME,
+        version = SecretiveOwner.VERSION,
+        guiFactory = "com.github.zworion.secretiveowner.config.MyModConfigGuiFactory"
 )
 public class SecretiveOwner {
 
@@ -43,7 +48,7 @@ public class SecretiveOwner {
     public static final String VERSION = "1.0.0";
 
     /**
-     *日志
+     * 日志
      */
     private static Logger logger;
 
@@ -57,8 +62,8 @@ public class SecretiveOwner {
      * 实例化客户端、服务端事件
      */
     @SidedProxy(
-        clientSide = "com.github.zworion.secretiveowner.client.ClientProxy",
-        serverSide = "com.github.zworion.secretiveowner.common.CommonProxy"
+            clientSide = "com.github.zworion.secretiveowner.client.ClientProxy",
+            serverSide = "com.github.zworion.secretiveowner.common.CommonProxy"
     )
     public static CommonProxy proxy;
 
@@ -74,6 +79,9 @@ public class SecretiveOwner {
 
         // 注册熔炼规则
         CraftingLoader.instance().registerSmelting();
+        //实例化EventLoader，注册事件
+        new EventLoader();
+
     }
 
     /**
@@ -95,8 +103,6 @@ public class SecretiveOwner {
     public void preInit(FMLPreInitializationEvent event) {
         logger = event.getModLog();
         proxy.preInit(event);
+        new ConfigLoader(event);
     }
 }
-
-
-//~ Formatted by Jindent --- http://www.jindent.com

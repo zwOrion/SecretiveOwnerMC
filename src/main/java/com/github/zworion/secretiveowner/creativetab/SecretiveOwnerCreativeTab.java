@@ -14,14 +14,28 @@ import net.minecraft.item.ItemStack;
 public final class SecretiveOwnerCreativeTab {
 
     /**
-     * 一个物品栏的实例
+     * 一个物品栏的实例,并设置其背景图(src\main\resources\assets\minecraft\textures\gui\container\creative_inventory)
      */
     public static final CreativeTabs SO_TAB = new CreativeTabs("secretiveowner.so_tab") {
+        /**
+         *
+         * @author ZWOrion
+         * @date 2020/1/8 23:12
+         *  设置物品栏的图标
+         * @return net.minecraft.item.ItemStack
+         */
         @Override
         public ItemStack createIcon() {
             return new ItemStack(ItemLoader.goldenEgg);
         }
 
+        /**
+         *
+         * @author ZWOrion
+         * @date 2020/1/8 23:13
+         *  设置搜索框
+         * @return boolean
+         */
         @Override
         public boolean hasSearchBar() {
             return true;
@@ -29,5 +43,3 @@ public final class SecretiveOwnerCreativeTab {
     }.setBackgroundImageName("secretiveowner.png");
 }
 
-
-//~ Formatted by Jindent --- http://www.jindent.com

@@ -1,3 +1,17 @@
 itemGroup.secretiveowner.so_tab=诡秘之主
+
+config.secretiveowner.general.diamondBurnTime=金蛋燃烧时间
+config.secretiveowner.general=诡秘设置
+
 item.secretiveowner.goldenEgg.name=金蛋
+item.secretiveowner.redStonePickaxe.name=红石镐
+item.secretiveowner.redStoneApple.name=红石苹果
+
 tile.secretiveowner.grassBlock.name=草块
+
+item.secretiveowner.helmet.name=红石头盔
+item.secretiveowner.chestplate.name=红石胸甲
+item.secretiveowner.leggings.name=红石护腿
+item.secretiveowner.boots.name=红石靴子
+
+death.attack.byPig=%s被猪弄死了！

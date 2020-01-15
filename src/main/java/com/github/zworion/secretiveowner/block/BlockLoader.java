@@ -20,39 +20,45 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
  */
 @Mod.EventBusSubscriber(modid = SecretiveOwner.MODID)
 public final class BlockLoader {
-
     /**
      * 草方块
      */
     public static Block grassBlock = new BlockGrassBlock();
 
     /**
+     * @param event 方块注册事件
+     * @return void
+     * @author ZWOrion
+     * @date 2020/1/8 22:23
      * 该方法用于注册方块
-     *
-     * @param event 事件
      */
     @SubscribeEvent
     public static void registerBlock(RegistryEvent.Register<Block> event) {
+        //注册草方块
         event.getRegistry().register(grassBlock);
     }
 
     /**
+     * @param event 方块的物品形式注册事件
+     * @return void
+     * @author ZWOrion
+     * @date 2020/1/8 22:24
      * 注册方块的物品形式
-     *
-     * @param event 事件
      */
     @SubscribeEvent
     public static void registerItem(RegistryEvent.Register<Item> event) {
+        //注册草方块的物品形式
         event.getRegistry().register(getBlockItem(grassBlock, "secretiveowner", "grass_block", 1048576));
     }
 
     /**
-     * 获得方块的物品形式
-     *
-     * @param block 方块
-     * @param modId modDD
+     * @param block 方块实体
+     * @param modId modID
      * @param name  方块名
-     * @return Item 方块的物品形式
+     * @return net.minecraft.item.Item 方块的物品形式
+     * @author ZWOrion
+     * @date 2020/1/8 22:25
+     * 获得方块的物品形式
      */
     private static Item getBlockItem(Block block, String modId, String name) {
         Item item = new ItemBlock(block).setRegistryName(modId, name);
@@ -61,14 +67,14 @@ public final class BlockLoader {
     }
 
     /**
-     * 获得方块的物品形式
-     * 可燃烧
-     *
      * @param block    方块
      * @param modId    modID
      * @param name     名字
      * @param burnTime 烧炼时间
-     * @return
+     * @return net.minecraft.item.Item
+     * @author ZWOrion
+     * @date 2020/1/8 22:27
+     * 获得可作为燃料的方块的物品形式
      */
     private static Item getBlockItem(Block block, String modId, String name, int burnTime) {
         Item item = new ItemBlock(block) {
@@ -81,6 +87,3 @@ public final class BlockLoader {
         return item;
     }
 }
-
-
-//~ Formatted by Jindent --- http://www.jindent.com

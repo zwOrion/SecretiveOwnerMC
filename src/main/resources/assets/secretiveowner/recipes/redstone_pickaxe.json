@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    " * ",
+    " * "
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:redstone"
+    },
+    "*": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "item": "secretiveowner:redstone_pickaxe"
+  }
+}

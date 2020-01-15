@@ -32,6 +32,12 @@ public final class ModelMapper {
     @SubscribeEvent
     public static void onModelReg(ModelRegistryEvent event) {
         registryModel(ItemLoader.goldenEgg);
+        registryModel(ItemLoader.redStonePickAxe);
+        registryModel(ItemLoader.redStoneApple);
+        registryModel(ItemLoader.redStoneHelmet);
+        registryModel(ItemLoader.redStoneChestplate);
+        registryModel(ItemLoader.redStoneLeggings);
+        registryModel(ItemLoader.redStoneBoots);
     }
 
     /**
@@ -45,6 +51,3 @@ public final class ModelMapper {
         ModelLoader.setCustomModelResourceLocation(item, 0, modelResourceLocation);
     }
 }
-
-
-//~ Formatted by Jindent --- http://www.jindent.com

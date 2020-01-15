@@ -1,0 +1,2 @@
+1. 存放方块的的状态模型描述 json 文件
+2. 指出其状态对应模型描述路径（默认在 assets.secretiveowner.models.block 路径下）

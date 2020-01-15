@@ -1,4 +1,19 @@
 itemGroup.secretiveowner.so_tab=SO
+
+config.secretiveowner.general.diamondBurnTime=diamondButnTime
+config.secretiveowner.general=SecretiveOwner
+
 item.secretiveowner.goldenEgg.name=Golden Egg
+item.secretiveowner.redStonePickaxe.name=Red Stone Pickaxe
+item.secretiveowner.redStoneApple.name=Red Stone Apple
+
 tile.secretiveowner.grassBlock.name=Grass Block
+
+item.secretiveowner.helmet.name=Redstone Helmet
+item.secretiveowner.chestplate.name=Redstone Chestplate
+item.secretiveowner.leggings.name=Redstone Leggings
+item.secretiveowner.boots.name=Redstone boots
+
+death.attack.byPig=%s was dead because of a pig!
+
 

@@ -24,11 +24,12 @@ import net.minecraftforge.fml.relauncher.Side;
         modid = SecretiveOwner.MODID
 )
 public final class ModelMapper {
-
     /**
-     * 注册方块事件
-     *
-     * @param event 事件
+     * @param event 方块模型注册事件
+     * @return void
+     * @author ZWOrion
+     * @date 2020/1/8 22:46
+     * 注册方块模型事件
      */
     @SubscribeEvent
     public static void onModelReg(ModelRegistryEvent event) {
@@ -36,16 +37,16 @@ public final class ModelMapper {
     }
 
     /**
+     * @param block 方块实体
+     * @return void
+     * @author ZWOrion
+     * @date 2020/1/8 22:47
      * 加载和处理方块模型
-     *
-     * @param block 方块
      */
     private static void registryModel(Block block) {
+        //获取方块模型资源路径(方块的注册名，固定字符串)（src/main/resources/assets/fmltutor/blockstates/<方块id>.json）
         ModelResourceLocation modelResourceLocation = new ModelResourceLocation(block.getRegistryName(), "inventory");
-
+        //加载方块资源模型
         ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(block), 0, modelResourceLocation);
     }
 }
-
-
-//~ Formatted by Jindent --- http://www.jindent.com
