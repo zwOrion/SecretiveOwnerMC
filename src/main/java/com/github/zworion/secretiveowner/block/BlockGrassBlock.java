@@ -3,6 +3,7 @@ package com.github.zworion.secretiveowner.block;
 import com.github.zworion.secretiveowner.creativetab.SecretiveOwnerCreativeTab;
 
 import com.github.zworion.secretiveowner.event.EventLoader;
+import com.github.zworion.secretiveowner.event.PlayerRightClickGrassBlockEvent;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -36,7 +37,7 @@ public class BlockGrassBlock extends Block {
 
     /**
      * Called when the block is right clicked by a player.
-     * 玩家右击事件
+     * 方块被玩家右击
      *
      * @param worldIn
      * @param pos
@@ -52,8 +53,7 @@ public class BlockGrassBlock extends Block {
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
                                     EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
         //获取玩家右击草块事件
-        EventLoader.PlayerRightClickGrassBlockEvent event;
-        event = new EventLoader.PlayerRightClickGrassBlockEvent(playerIn, pos, worldIn);
+        PlayerRightClickGrassBlockEvent event = new PlayerRightClickGrassBlockEvent(playerIn, pos, worldIn);
         //发布该事件
         EventLoader.EVENT_BUS.post(event);
         //判断事件是否被取消并且判断是否在服务端

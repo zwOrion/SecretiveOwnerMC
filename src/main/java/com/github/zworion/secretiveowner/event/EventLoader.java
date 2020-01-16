@@ -46,23 +46,6 @@ public class EventLoader {
     public static final EventBus EVENT_BUS = new EventBus();
 
     /**
-     * @author ZWOrion
-     * @date 2020/1/15 13:48
-     * 玩家点击草方块事件
-     */
-    @Cancelable
-    public static class PlayerRightClickGrassBlockEvent extends PlayerEvent {
-        public final BlockPos pos;
-        public final World world;
-
-        public PlayerRightClickGrassBlockEvent(EntityPlayer player, BlockPos pos, World world) {
-            super(player);
-            this.pos = pos;
-            this.world = world;
-        }
-    }
-
-    /**
      * @param event 玩家右击事件
      * @return void
      * @author ZWOrion
