@@ -78,7 +78,7 @@ public class SecretiveOwner {
         // 注册熔炼规则
         CraftingLoader.instance().registerSmelting();
         //实例化EventLoader，注册事件
-        new EventLoader();
+       // new EventLoader();
        // new EnchantmentLoader();
     }
 

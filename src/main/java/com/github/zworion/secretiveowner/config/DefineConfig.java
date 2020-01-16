@@ -21,7 +21,7 @@ public class DefineConfig {
     @Config.Name("DiamondBurnTime")
     @Config.RangeInt(min = 1, max = 123456)
     public static int diamondBurnTime = 680;
-    
+
     @Mod.EventBusSubscriber(modid = "secretiveowner")
     public static class ConfigSyncHandler {
         @SubscribeEvent
