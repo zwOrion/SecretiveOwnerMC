@@ -1,9 +1,7 @@
 package com.github.zworion.secretiveowner;
 
 import com.github.zworion.secretiveowner.config.ConfigLoader;
-import com.github.zworion.secretiveowner.config.MyModConfigGuiFactory;
 import com.github.zworion.secretiveowner.event.EventLoader;
-import net.minecraftforge.common.MinecraftForge;
 import org.apache.logging.log4j.Logger;
 
 import com.github.zworion.secretiveowner.common.CommonProxy;
@@ -81,7 +79,7 @@ public class SecretiveOwner {
         CraftingLoader.instance().registerSmelting();
         //实例化EventLoader，注册事件
         new EventLoader();
-
+       // new EnchantmentLoader();
     }
 
     /**

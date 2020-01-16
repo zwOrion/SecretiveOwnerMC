@@ -15,12 +15,13 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 @Config(modid = SecretiveOwner.MODID)
 @Config.LangKey("config.secretiveowner.general")
 public class DefineConfig {
+
     @Config.Comment("金蛋燃烧时间")
     @Config.LangKey("config.secretiveowner.general.diamondBurnTime")
     @Config.Name("DiamondBurnTime")
     @Config.RangeInt(min = 1, max = 123456)
     public static int diamondBurnTime = 680;
-
+    
     @Mod.EventBusSubscriber(modid = "secretiveowner")
     public static class ConfigSyncHandler {
         @SubscribeEvent
