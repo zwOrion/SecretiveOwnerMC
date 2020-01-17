@@ -3,9 +3,11 @@ package com.github.zworion.secretiveowner.event;
 import com.github.zworion.secretiveowner.SecretiveOwner;
 import com.github.zworion.secretiveowner.enchantment.EnchantmentFireBurn;
 import com.github.zworion.secretiveowner.enchantment.EnchantmentLoader;
+import com.github.zworion.secretiveowner.potion.PotionLoader;
 import net.minecraft.block.Block;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityTNTPrimed;
 import net.minecraft.entity.passive.EntityPig;
 import net.minecraft.entity.player.EntityPlayer;
@@ -13,6 +15,7 @@ import net.minecraft.init.Items;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
@@ -91,13 +94,13 @@ public class EventLoader {
             }
         }
     }
+
     /**
-     *
+     * @param event 方块掉落事件
+     * @return void
      * @author ZWOrion
      * @date 2020/1/16 12:21
      * 火焰灼烧附魔对应方块掉落事件
-     * @param event 方块掉落事件
-     * @return void
      */
     @SubscribeEvent
     public static void onBlockHarvestDrops(BlockEvent.HarvestDropsEvent event) {
@@ -144,8 +147,31 @@ public class EventLoader {
             }
         }
     }
+    /**
+     *
+     * @author ZWOrion
+     * @date 2020/1/16 15:10
+     * 生命受到伤害事件
+     * @param event 受伤事件
+     * @return void
+     */
     @SubscribeEvent
-    public static void onLivingHurt(LivingHurtEvent event){
-
+    public static void onLivingHurt(LivingHurtEvent event) {
+        //判断伤害的来源是否是掉落
+        if (event.getSource().getDamageType().equals(DamageSource.FALL.getDamageType())) {
+            //获取药水效果
+            PotionEffect effect = event.getEntityLiving().getActivePotionEffect(PotionLoader.potionFallProtection);
+            //判断效果是否为空
+            if(effect != null){
+                //判断药水等级是否为0
+                if(effect.getAmplifier() == 0){
+                    //伤害减半
+                    event.setAmount(event.getAmount()/2);
+                }else {
+                    //伤害置为0
+                    event.setAmount(0);
+                }
+            }
+        }
     }
 }
