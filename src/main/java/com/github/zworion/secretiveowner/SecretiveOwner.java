@@ -1,5 +1,6 @@
 package com.github.zworion.secretiveowner;
 
+import com.github.zworion.secretiveowner.client.KeyLoader;
 import com.github.zworion.secretiveowner.config.ConfigLoader;
 import com.github.zworion.secretiveowner.event.EventLoader;
 import org.apache.logging.log4j.Logger;
@@ -77,9 +78,8 @@ public class SecretiveOwner {
 
         // 注册熔炼规则
         CraftingLoader.instance().registerSmelting();
-        //实例化EventLoader，注册事件
-       // new EventLoader();
-       // new EnchantmentLoader();
+        //绑定热键
+        KeyLoader.keyBindingRegistration();
     }
 
     /**

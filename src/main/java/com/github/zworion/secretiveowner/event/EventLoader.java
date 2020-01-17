@@ -1,10 +1,12 @@
 package com.github.zworion.secretiveowner.event;
 
 import com.github.zworion.secretiveowner.SecretiveOwner;
+import com.github.zworion.secretiveowner.client.KeyLoader;
 import com.github.zworion.secretiveowner.enchantment.EnchantmentFireBurn;
 import com.github.zworion.secretiveowner.enchantment.EnchantmentLoader;
 import com.github.zworion.secretiveowner.potion.PotionLoader;
 import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -19,6 +21,7 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
@@ -29,6 +32,9 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.Cancelable;
 import net.minecraftforge.fml.common.eventhandler.EventBus;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.InputEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 /**
  * @author ZWOrion
@@ -172,6 +178,27 @@ public class EventLoader {
                     event.setAmount(0);
                 }
             }
+        }
+    }
+    /**
+     *
+     * @author ZWOrion
+     * @date 2020/1/17 13:55
+     * 按键输入事件，仅仅在客户端生效
+     * @param event
+     * @return void
+     */
+    @SideOnly(Side.CLIENT)
+    @SubscribeEvent
+    public static void onKeyInput(InputEvent.KeyInputEvent event){
+        //判断是否是自定义显示时间热键
+        if(KeyLoader.showTime.isPressed()){
+            //获取玩家
+            EntityPlayer player = Minecraft.getMinecraft().player;
+            //获取世界
+            World world = Minecraft.getMinecraft().world;
+            //向玩家聊天窗口发送消息
+            player.sendMessage(new TextComponentTranslation("chat.secretiveowner.time", world.getTotalWorldTime()));
         }
     }
 }

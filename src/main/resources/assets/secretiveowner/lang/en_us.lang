@@ -20,3 +20,8 @@ enchantment.fireBurn=Fire burning
 
 potion.fallProtection=Fall Protection
 
+key.secretiveowner.showTime=Show Time
+key.categories.secretiveowner=Secretive Owner
+
+chat.secretiveowner.time=The total world time is: %s.
+

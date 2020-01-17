@@ -20,3 +20,8 @@ enchantment.fireBurn=火焰灼烧
 
 potion.fallProtection=摔落保护
 
+key.secretiveowner.showTime=显示时间
+key.categories.secretiveowner=诡秘
+
+chat.secretiveowner.time=现在时间为：%s。
+
