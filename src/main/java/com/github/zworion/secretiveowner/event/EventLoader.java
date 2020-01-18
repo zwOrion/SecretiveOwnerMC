@@ -1,40 +1,44 @@
 package com.github.zworion.secretiveowner.event;
 
 import com.github.zworion.secretiveowner.SecretiveOwner;
+import com.github.zworion.secretiveowner.advancement.TriggerLoader;
 import com.github.zworion.secretiveowner.client.KeyLoader;
-import com.github.zworion.secretiveowner.enchantment.EnchantmentFireBurn;
 import com.github.zworion.secretiveowner.enchantment.EnchantmentLoader;
 import com.github.zworion.secretiveowner.potion.PotionLoader;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityTNTPrimed;
 import net.minecraft.entity.passive.EntityPig;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldServer;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
-import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.eventhandler.Cancelable;
 import net.minecraftforge.fml.common.eventhandler.EventBus;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.InputEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.apache.commons.logging.Log;
+import org.apache.logging.log4j.Logger;
 
 /**
  * @author ZWOrion
@@ -82,7 +86,7 @@ public class EventLoader {
         //获取事件玩家实体
         EntityPlayer player = event.getEntityPlayer();
         //判断交互对象是否是猪
-        if (event.getTarget() instanceof EntityPig) {
+        if (!player.world.isRemote && event.getTarget() instanceof EntityPig) {
             //获取猪实体的信息
             EntityPig pig = (EntityPig) event.getTarget();
             //获取玩家主手中的物品
@@ -90,13 +94,19 @@ public class EventLoader {
             //判断玩家手中物品是否是小麦或者小麦种子
             boolean b = (stack.areCapsCompatible(new ItemStack(Items.WHEAT)) || stack.areCapsCompatible(new ItemStack(Items.WHEAT_SEEDS)));
             if (b) {
+                if (!player.world.isRemote) {
+                    if (player instanceof EntityPlayerMP) {
+                        TriggerLoader.WORSE_THAN_PIG_TRIGGER.tigger((EntityPlayerMP) player, pig, stack);
+                    }
+                }
                 //设置玩家伤害来源
                 //伤害来源于猪的爆炸
                 player.attackEntityFrom((new DamageSource("byPig")).setDifficultyScaled().setExplosion(), 25.0F);
                 //在交互猪实体位置生成爆炸
                 player.world.createExplosion(pig, pig.posX, pig.posY, pig.posZ, 100.0F, false);
                 //猪死亡
-                pig.setDead();
+                pig.setHealth(10.0F);
+
             }
         }
     }
@@ -153,13 +163,13 @@ public class EventLoader {
             }
         }
     }
+
     /**
-     *
+     * @param event 受伤事件
+     * @return void
      * @author ZWOrion
      * @date 2020/1/16 15:10
      * 生命受到伤害事件
-     * @param event 受伤事件
-     * @return void
      */
     @SubscribeEvent
     public static void onLivingHurt(LivingHurtEvent event) {
@@ -168,31 +178,31 @@ public class EventLoader {
             //获取药水效果
             PotionEffect effect = event.getEntityLiving().getActivePotionEffect(PotionLoader.potionFallProtection);
             //判断效果是否为空
-            if(effect != null){
+            if (effect != null) {
                 //判断药水等级是否为0
-                if(effect.getAmplifier() == 0){
+                if (effect.getAmplifier() == 0) {
                     //伤害减半
-                    event.setAmount(event.getAmount()/2);
-                }else {
+                    event.setAmount(event.getAmount() / 2);
+                } else {
                     //伤害置为0
                     event.setAmount(0);
                 }
             }
         }
     }
+
     /**
-     *
+     * @param event
+     * @return void
      * @author ZWOrion
      * @date 2020/1/17 13:55
      * 按键输入事件，仅仅在客户端生效
-     * @param event
-     * @return void
      */
     @SideOnly(Side.CLIENT)
     @SubscribeEvent
-    public static void onKeyInput(InputEvent.KeyInputEvent event){
+    public static void onKeyInput(InputEvent.KeyInputEvent event) {
         //判断是否是自定义显示时间热键
-        if(KeyLoader.showTime.isPressed()){
+        if (KeyLoader.showTime.isPressed()) {
             //获取玩家
             EntityPlayer player = Minecraft.getMinecraft().player;
             //获取世界

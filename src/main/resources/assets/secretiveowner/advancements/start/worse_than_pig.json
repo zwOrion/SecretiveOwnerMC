@@ -1,0 +1,29 @@
+{
+  "display": {
+    "icon": {
+      "item": "minecraft:map"
+    },
+    "title": {
+      "translate": "advancements.secretiveowner.start.worseThanPig.title"
+    },
+    "description": {
+      "translate": "advancements.secretiveowner.start.worseThanPig.description"
+    },
+    "show_toast": true,
+    "announce_to_chat":  true
+  },
+  "parent": "secretiveowner:start/grass_block",
+  "criteria": {
+    "killed_by_pig": {
+      "trigger": "secretiveowner:worse_than_pig",
+      "conditions": {
+        "entity": {
+          "type": "minecraft:pig"
+        },
+        "item": {
+          "item": "minecraft:wheat_seeds"
+        }
+      }
+    }
+  }
+}

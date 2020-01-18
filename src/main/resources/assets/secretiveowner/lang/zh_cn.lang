@@ -25,3 +25,8 @@ key.categories.secretiveowner=诡秘
 
 chat.secretiveowner.time=现在时间为：%s。
 
+advancements.secretiveowner.start.worseThanPig.title=人不如猪
+advancements.secretiveowner.start.worseThanPig.description=因为提供给猪错误的饲料而死
+advancements.secretiveowner.start.grassBlock.title=像绿色羊毛的方块
+advancements.secretiveowner.start.grassBlock.description=放置草块
+

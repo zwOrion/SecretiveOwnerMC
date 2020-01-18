@@ -1,8 +1,13 @@
 package com.github.zworion.secretiveowner;
 
+import com.github.zworion.secretiveowner.advancement.TriggerLoader;
 import com.github.zworion.secretiveowner.client.KeyLoader;
 import com.github.zworion.secretiveowner.config.ConfigLoader;
 import com.github.zworion.secretiveowner.event.EventLoader;
+import net.minecraft.client.Minecraft;
+import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import org.apache.logging.log4j.Logger;
 
 import com.github.zworion.secretiveowner.common.CommonProxy;
@@ -49,7 +54,7 @@ public class SecretiveOwner {
     /**
      * 日志
      */
-    private static Logger logger;
+    public static Logger logger;
 
     /**
      * 实例化主类
@@ -80,6 +85,10 @@ public class SecretiveOwner {
         CraftingLoader.instance().registerSmelting();
         //绑定热键
         KeyLoader.keyBindingRegistration();
+
+
+
+        TriggerLoader.registerTrigger();
     }
 
     /**

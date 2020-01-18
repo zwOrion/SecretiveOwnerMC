@@ -2,6 +2,8 @@ package com.github.zworion.secretiveowner.client;
 
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.input.Keyboard;
 
 /**
@@ -21,6 +23,7 @@ public class KeyLoader {
      *  注册绑定热键
      * @return void
      */
+    @SideOnly(Side.CLIENT)
     public static void keyBindingRegistration(){
         //注册 显示时间
         ClientRegistry.registerKeyBinding(KeyLoader.showTime);

@@ -25,3 +25,8 @@ key.categories.secretiveowner=Secretive Owner
 
 chat.secretiveowner.time=The total world time is: %s.
 
+advancements.secretiveowner.start.worseThanPig.title=Worse Than Pig
+advancements.secretiveowner.start.worseThanPig.description=Die from inappropriate food for the pig
+advancements.secretiveowner.start.grassBlock.title=Use Grass Block
+advancements.secretiveowner.start.grassBlock.description=Use Grass Block
+
