@@ -30,3 +30,6 @@ advancements.secretiveowner.start.worseThanPig.description=Die from inappropriat
 advancements.secretiveowner.start.grassBlock.title=Use Grass Block
 advancements.secretiveowner.start.grassBlock.description=Use Grass Block
 
+commands.position.usage=/position [player]
+commands.position.success=The position of %1$s is %2$s in world %3$s
+

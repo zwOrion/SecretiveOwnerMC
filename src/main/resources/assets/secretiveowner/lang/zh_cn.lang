@@ -30,3 +30,5 @@ advancements.secretiveowner.start.worseThanPig.description=因为提供给猪错
 advancements.secretiveowner.start.grassBlock.title=像绿色羊毛的方块
 advancements.secretiveowner.start.grassBlock.description=放置草块
 
+commands.position.usage=/position [玩家]
+commands.position.success=玩家 %1$s 处于名为 %3$s 的世界，其坐标为 %2$s

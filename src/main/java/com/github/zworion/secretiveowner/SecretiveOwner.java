@@ -1,17 +1,10 @@
 package com.github.zworion.secretiveowner;
 
-import com.github.zworion.secretiveowner.advancement.TriggerLoader;
-import com.github.zworion.secretiveowner.client.KeyLoader;
-import com.github.zworion.secretiveowner.config.ConfigLoader;
-import com.github.zworion.secretiveowner.event.EventLoader;
-import net.minecraft.client.Minecraft;
-import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import com.github.zworion.secretiveowner.command.CommandLoader;
+import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import org.apache.logging.log4j.Logger;
 
 import com.github.zworion.secretiveowner.common.CommonProxy;
-import com.github.zworion.secretiveowner.crafting.CraftingLoader;
 
 import net.minecraft.init.Blocks;
 
@@ -81,14 +74,6 @@ public class SecretiveOwner {
         logger.info("DIRT BLOCK >> {}", Blocks.DIRT.getRegistryName());
         proxy.init(event);
 
-        // 注册熔炼规则
-        CraftingLoader.instance().registerSmelting();
-        //绑定热键
-        KeyLoader.keyBindingRegistration();
-
-
-
-        TriggerLoader.registerTrigger();
     }
 
     /**
@@ -98,6 +83,7 @@ public class SecretiveOwner {
      */
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent event) {
+
         proxy.postInit(event);
     }
 
@@ -110,6 +96,11 @@ public class SecretiveOwner {
     public void preInit(FMLPreInitializationEvent event) {
         logger = event.getModLog();
         proxy.preInit(event);
-        new ConfigLoader(event);
+    }
+
+    @Mod.EventHandler
+    public void onServerStarting(FMLServerStartingEvent event) {
+        logger.info("服务器启动中 >> {}", "注册服务器指令");
+        CommandLoader.commandRegister(event);
     }
 }
