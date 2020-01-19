@@ -1,0 +1,17 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "pattern": [
+        "###",
+        "###",
+        "###"
+    ],
+    "key": {
+        "#": {
+            "item": "minecraft:tallgrass",
+            "data": 1
+        }
+    },
+    "result": {
+        "item": "secretiveowner:grass_block"
+    }
+}

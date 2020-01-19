@@ -2,9 +2,11 @@ package com.github.zworion.secretiveowner.event;
 
 import com.github.zworion.secretiveowner.SecretiveOwner;
 import com.github.zworion.secretiveowner.advancement.TriggerLoader;
+import com.github.zworion.secretiveowner.block.BlockLoader;
 import com.github.zworion.secretiveowner.client.KeyLoader;
 import com.github.zworion.secretiveowner.enchantment.EnchantmentLoader;
 import com.github.zworion.secretiveowner.potion.PotionLoader;
+import com.github.zworion.secretiveowner.sound.SoundLoader;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -13,13 +15,16 @@ import net.minecraft.entity.item.EntityTNTPrimed;
 import net.minecraft.entity.passive.EntityPig;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
@@ -31,6 +36,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.EventBus;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.InputEvent;
+import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -203,6 +209,22 @@ public class EventLoader {
             World world = Minecraft.getMinecraft().world;
             //向玩家聊天窗口发送消息
             player.sendMessage(new TextComponentTranslation("chat.secretiveowner.time", world.getTotalWorldTime()));
+        }
+    }
+    /**
+     *
+     * @author ZWOrion
+     * @date 2020/1/19 15:15
+     * 玩家合成事件
+     * @param event
+     * @return void
+     */
+    @SubscribeEvent
+    public static void onPlayerItemCrafted(PlayerEvent.ItemCraftedEvent event) {
+        //判断玩家合成的物品是否是草块
+        if (event.crafting.getItem() == Item.getItemFromBlock(BlockLoader.grassBlock)) {
+            //播放音效
+            event.player.world.playSound(event.player, event.player.getPosition(), SoundLoader.TEST_SOUND, SoundCategory.PLAYERS, 1.0F, 1.0F);
         }
     }
 }

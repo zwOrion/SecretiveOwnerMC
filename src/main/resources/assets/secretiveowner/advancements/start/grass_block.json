@@ -16,11 +16,14 @@
   "criteria": {
     "use_grass_block": {
       "trigger": "minecraft:placed_block",
-      "item": {
-        "item": "secretiveowner:grass_block"
-      },
-      "location": {
-        "dimension": "overworld"
+      "conditions":{
+        "block": "secretiveowner:grass_block",
+        "item": {
+          "item": "secretiveowner:grass_block"
+        },
+        "location": {
+          "dimension": "overworld"
+        }
       }
     }
   }
