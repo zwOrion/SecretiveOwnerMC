@@ -27,6 +27,7 @@ public class PotionLoader {
      */
     @SubscribeEvent
     public static void onPotionRegistration(RegistryEvent.Register<Potion> event) {
+        SecretiveOwner.logger.info("注册药水效果 >> {}", "");
         //注册摔落保护
         event.getRegistry().registerAll(potionFallProtection);
     }

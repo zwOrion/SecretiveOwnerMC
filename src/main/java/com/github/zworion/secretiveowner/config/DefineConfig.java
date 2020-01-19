@@ -26,6 +26,7 @@ public class DefineConfig {
     public static class ConfigSyncHandler {
         @SubscribeEvent
         public static void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent event) {
+            SecretiveOwner.logger.info("同步配置文件 >> {}", "");
             if (event.getModID().equals(SecretiveOwner.MODID)) {
                 ConfigManager.sync(SecretiveOwner.MODID, Config.Type.INSTANCE);
             }

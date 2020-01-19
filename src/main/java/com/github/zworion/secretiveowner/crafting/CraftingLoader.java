@@ -3,13 +3,8 @@ package com.github.zworion.secretiveowner.crafting;
 import com.github.zworion.secretiveowner.block.BlockLoader;
 import com.github.zworion.secretiveowner.item.ItemLoader;
 
-import net.minecraft.init.Items;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemEgg;
 import net.minecraft.item.ItemStack;
 
-import net.minecraftforge.event.furnace.FurnaceFuelBurnTimeEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 /**

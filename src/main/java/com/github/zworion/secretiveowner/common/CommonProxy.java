@@ -1,6 +1,9 @@
 package com.github.zworion.secretiveowner.common;
 
 
+import com.github.zworion.secretiveowner.SecretiveOwner;
+import com.github.zworion.secretiveowner.advancement.TriggerLoader;
+import com.github.zworion.secretiveowner.crafting.CraftingLoader;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -21,6 +24,12 @@ public class CommonProxy {
      * 初始化
      */
     public void init(FMLInitializationEvent event) {
+        SecretiveOwner.logger.info("服务器初始化 >> {}", "注册触发器");
+        //注册触发器
+        TriggerLoader.registerTrigger();
+        SecretiveOwner.logger.info("服务器初始化 >> {}", "注册熔炼规则");
+        // 注册熔炼规则
+        CraftingLoader.instance().registerSmelting();
     }
 
     /**
@@ -31,6 +40,7 @@ public class CommonProxy {
      * 初始化后
      */
     public void postInit(FMLPostInitializationEvent event) {
+        SecretiveOwner.logger.info("服务器初始化后 >> {}", "");
     }
 
     /**
@@ -41,6 +51,7 @@ public class CommonProxy {
      * 预初始化
      */
     public void preInit(FMLPreInitializationEvent event) {
+        SecretiveOwner.logger.info("服务器预初始化 >> {}", "");
     }
 }
 

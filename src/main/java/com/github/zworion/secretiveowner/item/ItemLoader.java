@@ -1,9 +1,9 @@
 package com.github.zworion.secretiveowner.item;
 
+import com.github.zworion.secretiveowner.SecretiveOwner;
 import net.minecraft.item.Item;
 
 import net.minecraft.item.ItemArmor;
-import net.minecraft.item.ItemArrow;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -63,6 +63,7 @@ public final class ItemLoader {
      */
     @SubscribeEvent
     public static void registerItem(RegistryEvent.Register<Item> event) {
+        SecretiveOwner.logger.info("注册物品 >> {}", goldenEgg.getRegistryName());
         //注册金蛋
         event.getRegistry().register(goldenEgg);
         //注册红石镐

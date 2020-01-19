@@ -1,8 +1,6 @@
 package com.github.zworion.secretiveowner.potion;
 
 import com.github.zworion.secretiveowner.SecretiveOwner;
-import net.minecraft.init.PotionTypes;
-import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.potion.PotionType;
 import net.minecraftforge.event.RegistryEvent;

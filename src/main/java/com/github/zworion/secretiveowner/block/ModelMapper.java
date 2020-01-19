@@ -33,6 +33,7 @@ public final class ModelMapper {
      */
     @SubscribeEvent
     public static void onModelReg(ModelRegistryEvent event) {
+        SecretiveOwner.logger.info("加载方块模型事件 >> {}","");
         registryModel(BlockLoader.grassBlock);
     }
 
@@ -44,6 +45,7 @@ public final class ModelMapper {
      * 加载和处理方块模型
      */
     private static void registryModel(Block block) {
+        SecretiveOwner.logger.info("加载方块材质模型 >> {}", block.getRegistryName());
         //获取方块模型资源路径(方块的注册名，固定字符串)（src/main/resources/assets/fmltutor/blockstates/<方块id>.json）
         ModelResourceLocation modelResourceLocation = new ModelResourceLocation(block.getRegistryName(), "inventory");
         //加载方块资源模型

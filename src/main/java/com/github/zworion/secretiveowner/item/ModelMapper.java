@@ -46,6 +46,7 @@ public final class ModelMapper {
      * @param item 物品
      */
     private static void registryModel(Item item) {
+        SecretiveOwner.logger.info("加载物品材质模型 >> {}", item.getRegistryName());
         ModelResourceLocation modelResourceLocation = new ModelResourceLocation(item.getRegistryName(), "inventory");
 
         ModelLoader.setCustomModelResourceLocation(item, 0, modelResourceLocation);

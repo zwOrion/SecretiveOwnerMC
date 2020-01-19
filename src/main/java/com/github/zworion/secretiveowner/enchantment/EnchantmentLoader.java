@@ -31,6 +31,7 @@ public class EnchantmentLoader {
      */
     @SubscribeEvent
     public static void onEnchantmentRegistration(RegistryEvent.Register<Enchantment> event) {
+        SecretiveOwner.logger.info("注册附魔 >> {}", "");
         //注册火焰灼烧附魔
         event.getRegistry().registerAll(fireBurn);
     }

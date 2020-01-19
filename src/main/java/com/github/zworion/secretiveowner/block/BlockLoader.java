@@ -34,6 +34,7 @@ public final class BlockLoader {
      */
     @SubscribeEvent
     public static void registerBlock(RegistryEvent.Register<Block> event) {
+        SecretiveOwner.logger.info("注册方块 >> {}", grassBlock.getRegistryName());
         //注册草方块
         event.getRegistry().register(grassBlock);
     }
@@ -47,6 +48,7 @@ public final class BlockLoader {
      */
     @SubscribeEvent
     public static void registerItem(RegistryEvent.Register<Item> event) {
+        SecretiveOwner.logger.info("注册方块物品形式 >> {}", grassBlock.getRegistryName());
         //注册草方块的物品形式
         event.getRegistry().register(getBlockItem(grassBlock, "secretiveowner", "grass_block", 1048576));
     }

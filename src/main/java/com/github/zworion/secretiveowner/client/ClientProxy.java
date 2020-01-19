@@ -1,5 +1,6 @@
 package com.github.zworion.secretiveowner.client;
 
+import com.github.zworion.secretiveowner.SecretiveOwner;
 import com.github.zworion.secretiveowner.common.CommonProxy;
 
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -24,6 +25,9 @@ public class ClientProxy extends CommonProxy {
     @Override
     public void init(FMLInitializationEvent event) {
         super.init(event);
+        SecretiveOwner.logger.info("客户端初始化 >> {}", "绑定热键");
+        //绑定热键
+        KeyLoader.keyBindingRegistration();
     }
 
     /**
@@ -36,6 +40,7 @@ public class ClientProxy extends CommonProxy {
     @Override
     public void postInit(FMLPostInitializationEvent event) {
         super.postInit(event);
+        SecretiveOwner.logger.info("客户端后初始化 >> {}", "");
     }
 
     /**
@@ -48,8 +53,7 @@ public class ClientProxy extends CommonProxy {
     @Override
     public void preInit(FMLPreInitializationEvent event) {
         super.preInit(event);
-
-        /* new ItemLoader(event); */
+        SecretiveOwner.logger.info("客户端预初始化 >> {}", "");
     }
 }
 
