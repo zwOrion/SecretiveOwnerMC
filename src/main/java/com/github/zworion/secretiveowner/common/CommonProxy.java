@@ -34,6 +34,9 @@ public class CommonProxy {
         SecretiveOwner.logger.info("服务器初始化 >> {}", "注册矿物生成规则");
         //注册矿物生成
         new WorldGeneratorLoader();
+        SecretiveOwner.logger.info("服务器初始化 >> {}", "注册矿物辞典");
+        //注册矿物辞典
+        new OreDictionaryLoader();
     }
 
     /**

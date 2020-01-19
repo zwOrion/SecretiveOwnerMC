@@ -1,5 +1,5 @@
 {
-    "type": "minecraft:crafting_shapeless",
+    "type": "minecraft:crafting_shaped",
     "pattern": [
         "###",
         "###",
@@ -7,8 +7,8 @@
     ],
     "key": {
         "#": {
-            "item": "minecraft:tallgrass",
-            "data": 1
+            "type": "forge:ore_dict",
+            "ore": "glassPlant"
         }
     },
     "result": {
