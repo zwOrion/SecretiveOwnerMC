@@ -4,6 +4,7 @@ package com.github.zworion.secretiveowner.common;
 import com.github.zworion.secretiveowner.SecretiveOwner;
 import com.github.zworion.secretiveowner.advancement.TriggerLoader;
 import com.github.zworion.secretiveowner.crafting.CraftingLoader;
+import com.github.zworion.secretiveowner.worldgen.WorldGeneratorLoader;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -30,6 +31,9 @@ public class CommonProxy {
         SecretiveOwner.logger.info("服务器初始化 >> {}", "注册熔炼规则");
         // 注册熔炼规则
         CraftingLoader.instance().registerSmelting();
+        SecretiveOwner.logger.info("服务器初始化 >> {}", "注册矿物生成规则");
+        //注册矿物生成
+        new WorldGeneratorLoader();
     }
 
     /**
