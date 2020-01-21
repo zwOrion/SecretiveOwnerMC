@@ -1,6 +1,7 @@
 package com.github.zworion.secretiveowner;
 
 import com.github.zworion.secretiveowner.command.CommandLoader;
+import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import org.apache.logging.log4j.Logger;
 
@@ -54,6 +55,10 @@ public class SecretiveOwner {
      */
     @Mod.Instance(SecretiveOwner.MODID)
     public static SecretiveOwner instance;
+    static {
+        //启用万能桶
+        FluidRegistry.enableUniversalBucket();
+    }
 
     /**
      * 实例化客户端、服务端事件

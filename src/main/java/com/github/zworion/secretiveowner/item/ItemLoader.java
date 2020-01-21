@@ -1,10 +1,12 @@
 package com.github.zworion.secretiveowner.item;
 
 import com.github.zworion.secretiveowner.SecretiveOwner;
+import com.github.zworion.secretiveowner.fluid.FluidLoader;
 import net.minecraft.item.Item;
 
 import net.minecraft.item.ItemArmor;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
@@ -84,6 +86,7 @@ public final class ItemLoader {
         event.getRegistry().register(redStoneBoots);
         //注册水银桶
         event.getRegistry().register(bucketMercury);
+        FluidRegistry.addBucketForFluid(FluidLoader.fluidMercury);
     }
 }
 
