@@ -48,6 +48,10 @@ public final class ItemLoader {
      * 红石靴子
      */
     public static ItemArmor redStoneBoots = new ItemRedstoneArmor.Boots();
+    /**
+     * 水银桶
+     */
+    public static ItemBucketMercury bucketMercury = new ItemBucketMercury();
 
     /**
      * 物品注册事件
@@ -78,6 +82,8 @@ public final class ItemLoader {
         event.getRegistry().register(redStoneLeggings);
         //注册红石靴子
         event.getRegistry().register(redStoneBoots);
+        //注册水银桶
+        event.getRegistry().register(bucketMercury);
     }
 }
 

@@ -8,11 +8,13 @@ item.secretiveowner.redStonePickaxe.name=Red Stone Pickaxe
 item.secretiveowner.redStoneApple.name=Red Stone Apple
 
 tile.secretiveowner.grassBlock.name=Grass Block
+tile.fluidMercury.name=Mercury
 
 item.secretiveowner.helmet.name=Redstone Helmet
 item.secretiveowner.chestplate.name=Redstone Chestplate
 item.secretiveowner.leggings.name=Redstone Leggings
 item.secretiveowner.boots.name=Redstone boots
+item.secretiveowner.bucketMercury.name=Mercury Bucket
 
 death.attack.byPig=%s was dead because of a pig!
 
@@ -32,4 +34,8 @@ advancements.secretiveowner.start.grassBlock.description=Use Grass Block
 
 commands.position.usage=/position [player]
 commands.position.success=The position of %1$s is %2$s in world %3$s
+
+fluid.mercury=Mercury
+
+
 

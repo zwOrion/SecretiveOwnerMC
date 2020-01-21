@@ -4,6 +4,7 @@ package com.github.zworion.secretiveowner.common;
 import com.github.zworion.secretiveowner.SecretiveOwner;
 import com.github.zworion.secretiveowner.advancement.TriggerLoader;
 import com.github.zworion.secretiveowner.crafting.CraftingLoader;
+import com.github.zworion.secretiveowner.fluid.FluidLoader;
 import com.github.zworion.secretiveowner.worldgen.WorldGeneratorLoader;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -37,6 +38,8 @@ public class CommonProxy {
         SecretiveOwner.logger.info("服务器初始化 >> {}", "注册矿物辞典");
         //注册矿物辞典
         new OreDictionaryLoader();
+        SecretiveOwner.logger.info("服务器初始化 >> {}", "注册流体");
+
     }
 
     /**
@@ -58,7 +61,9 @@ public class CommonProxy {
      * 预初始化
      */
     public void preInit(FMLPreInitializationEvent event) {
-        SecretiveOwner.logger.info("服务器预初始化 >> {}", "");
+        SecretiveOwner.logger.info("服务器预初始化 >> {}", "注册流体");
+        //注册流体
+        new FluidLoader();
     }
 }
 

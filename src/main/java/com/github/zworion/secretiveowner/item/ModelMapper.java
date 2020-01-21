@@ -38,6 +38,7 @@ public final class ModelMapper {
         registryModel(ItemLoader.redStoneChestplate);
         registryModel(ItemLoader.redStoneLeggings);
         registryModel(ItemLoader.redStoneBoots);
+        registryModel(ItemLoader.bucketMercury);
     }
 
     /**

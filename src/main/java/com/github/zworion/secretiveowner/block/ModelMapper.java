@@ -2,11 +2,13 @@ package com.github.zworion.secretiveowner.block;
 
 import com.github.zworion.secretiveowner.SecretiveOwner;
 
+import com.github.zworion.secretiveowner.fluid.FluidLoader;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 
 import net.minecraftforge.client.event.ModelRegistryEvent;
+import net.minecraftforge.client.model.ModelFluid;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -35,6 +37,8 @@ public final class ModelMapper {
     public static void onModelReg(ModelRegistryEvent event) {
         SecretiveOwner.logger.info("加载方块模型事件 >> {}","");
         registryModel(BlockLoader.grassBlock);
+        //注册流体模型
+        FluidLoader.registerRenders();
     }
 
     /**

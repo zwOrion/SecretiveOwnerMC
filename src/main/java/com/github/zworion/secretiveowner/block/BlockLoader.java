@@ -2,6 +2,7 @@ package com.github.zworion.secretiveowner.block;
 
 import com.github.zworion.secretiveowner.SecretiveOwner;
 
+import com.github.zworion.secretiveowner.block.fluid.BlockFluidMercury;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
@@ -24,6 +25,10 @@ public final class BlockLoader {
      * 草方块
      */
     public static Block grassBlock = new BlockGrassBlock();
+    /**
+     * 水银液体对应方块
+     */
+    public static Block fluidMercuryBlock = new BlockFluidMercury();
 
     /**
      * @param event 方块注册事件
@@ -37,6 +42,9 @@ public final class BlockLoader {
         SecretiveOwner.logger.info("注册方块 >> {}", grassBlock.getRegistryName());
         //注册草方块
         event.getRegistry().register(grassBlock);
+        SecretiveOwner.logger.info("注册方块 >> {}", fluidMercuryBlock.getRegistryName());
+        //注册水银方块
+        event.getRegistry().register(fluidMercuryBlock);
     }
 
     /**
@@ -51,6 +59,7 @@ public final class BlockLoader {
         SecretiveOwner.logger.info("注册方块物品形式 >> {}", grassBlock.getRegistryName());
         //注册草方块的物品形式
         event.getRegistry().register(getBlockItem(grassBlock, "secretiveowner", "grass_block", 1048576));
+        event.getRegistry().register(getBlockItem(fluidMercuryBlock, "secretiveowner", "fluid_Mercury"));
     }
 
     /**

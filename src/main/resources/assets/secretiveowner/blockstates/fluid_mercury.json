@@ -1,0 +1,9 @@
+{
+    "forge_marker": 1,
+    "variants": {
+        "mercury": {
+            "model": "forge:fluid",
+            "custom": { "fluid": "mercury" }
+        }
+    }
+}
