@@ -3,6 +3,7 @@ package com.github.zworion.secretiveowner.client;
 import com.github.zworion.secretiveowner.SecretiveOwner;
 import com.github.zworion.secretiveowner.common.CommonProxy;
 
+import com.github.zworion.secretiveowner.entity.render.EntityRenderLoader;
 import com.github.zworion.secretiveowner.fluid.FluidLoader;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -55,6 +56,8 @@ public class ClientProxy extends CommonProxy {
     public void preInit(FMLPreInitializationEvent event) {
         super.preInit(event);
         SecretiveOwner.logger.info("客户端预初始化 >> {}", "");
+        //注册实体模型
+        new EntityRenderLoader();
 
     }
 }

@@ -36,6 +36,7 @@ commands.position.usage=/position [player]
 commands.position.success=The position of %1$s is %2$s in world %3$s
 
 fluid.mercury=Mercury
+fluid.fluidMercury=Mercury Bucket
 
-
-
+entity.secretiveowner.goldenChicken.name=Golden Chicken
+entity.goldenChicken.name=Golden Chicken Egg

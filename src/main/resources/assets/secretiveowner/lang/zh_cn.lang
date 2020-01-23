@@ -36,6 +36,7 @@ commands.position.usage=/position [玩家]
 commands.position.success=玩家 %1$s 处于名为 %3$s 的世界，其坐标为 %2$s
 
 fluid.mercury=水银
+fluid.fluidMercury=水银桶
 
-
-
+entity.secretiveowner.goldenChicken.name=黄金鸡
+entity.goldenChicken.name=黄金鸡
