@@ -5,7 +5,11 @@ import com.github.zworion.secretiveowner.entity.render.EntityRenderFactory;
 import com.github.zworion.secretiveowner.entity.render.RenderGoldenChicken;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EnumCreatureType;
+import net.minecraft.init.Biomes;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.biome.Biome;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;
@@ -24,13 +28,13 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 @Mod.EventBusSubscriber(modid = SecretiveOwner.MODID)
 public class EntityLoader {
     private static int nextID = 0;
+
     /**
-     *
+     * @param event
+     * @return void
      * @author ZWOrion
      * @date 2020/1/22 14:22
      * 注册实体
-     * @param event
-     * @return void
      */
     @SubscribeEvent
     public static void onEntityRegistation(RegistryEvent.Register<EntityEntry> event) {
@@ -48,36 +52,44 @@ public class EntityLoader {
                 //构建实体
                 .build());
         //注册对应的蛋(实体ID,主要颜色，次要颜色)
-        EntityRegistry.registerEgg(new ResourceLocation(SecretiveOwner.MODID,"golden_chicken"), 0xffff66, 0x660000);
+        EntityRegistry.registerEgg(new ResourceLocation(SecretiveOwner.MODID, "golden_chicken"), 0xffff66, 0x660000);
+        Biome[] biomes = new Biome[]{Biomes.PLAINS,Biomes.BEACH,Biomes.BIRCH_FOREST,Biomes.DEFAULT};
+        registerEntitySpawn(EntityGoldenChicken.class, 8, 2, 4, EnumCreatureType.CREATURE, biomes);
     }
+
     /**
-     *
+     * @return void
      * @author ZWOrion
      * @date 2020/1/22 20:04
-     *  注册实体模型
-     * @return void
+     * 注册实体模型
      */
     @SideOnly(Side.CLIENT)
-    public static void registerRenders()
-    {
+    public static void registerRenders() {
         //注册黄金鸡模型
         registerEntityRender(EntityGoldenChicken.class, RenderGoldenChicken.class);
     }
 
     /**
-     *
-     * @author ZWOrion
-     * @date 2020/1/22 20:08
-     * 注册实体模型
      * @param entityClass
      * @param render
      * @return void
+     * @author ZWOrion
+     * @date 2020/1/22 20:08
+     * 注册实体模型
      */
     @SideOnly(Side.CLIENT)
-    private static <T extends Entity> void registerEntityRender(Class<T> entityClass, Class<? extends Render<T>> render)
-    {
+    private static <T extends Entity> void registerEntityRender(Class<T> entityClass, Class<? extends Render<T>> render) {
         SecretiveOwner.logger.info("注册实体模型 >> {}", entityClass.getName());
         //注册实体模型
         RenderingRegistry.registerEntityRenderingHandler(entityClass, new EntityRenderFactory<>(render));
+    }
+    private static void registerEntitySpawn(Class<? extends Entity> entityClass, int spawnWeight, int min,
+                                            int max, EnumCreatureType typeOfCreature, Biome[] biomes)
+    {
+        if (EntityLiving.class.isAssignableFrom(entityClass))
+        {
+            Class<? extends EntityLiving> entityLivingClass = entityClass.asSubclass(EntityLiving.class);
+            EntityRegistry.addSpawn(entityLivingClass, spawnWeight, min, max, typeOfCreature, biomes);
+        }
     }
 }

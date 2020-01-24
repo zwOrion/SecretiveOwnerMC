@@ -2,6 +2,9 @@ package com.github.zworion.secretiveowner.entity;
 
 import com.github.zworion.secretiveowner.item.ItemLoader;
 import com.github.zworion.secretiveowner.world.storage.loot.LootLoader;
+import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.attributes.IAttribute;
+import net.minecraft.entity.ai.attributes.RangedAttribute;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.passive.EntityChicken;
 import net.minecraft.init.Items;
@@ -20,10 +23,12 @@ import javax.annotation.Nullable;
  * 黄金鸡
  */
 public class EntityGoldenChicken extends EntityChicken {
+    public static final IAttribute wingSpeed = new RangedAttribute(null, "secretiveowner.GoldenChicken.wingSpeed", 1.5D, 0.0D, 4.0D).setDescription("Wing Speed").setShouldWatch(true);
+
     public EntityGoldenChicken(World worldIn) {
         super(worldIn);
         //设置实体的碰撞箱大小
-        this.setSize(1.0F, 1.75F);
+        this.setSize(1.2F, 1.75F);
     }
 
     /**
@@ -47,5 +52,14 @@ public class EntityGoldenChicken extends EntityChicken {
     @Override
     protected ResourceLocation getLootTable() {
         return LootLoader.ENTITES_GOLDENCHICKEN;
+    }
+
+    @Override
+    protected void applyEntityAttributes() {
+        super.applyEntityAttributes();
+        this.getAttributeMap().registerAttribute(wingSpeed);
+        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(10.0D);
+        this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.5D);
+        this.getEntityAttribute(wingSpeed).setBaseValue(1 + this.rand.nextDouble());
     }
 }

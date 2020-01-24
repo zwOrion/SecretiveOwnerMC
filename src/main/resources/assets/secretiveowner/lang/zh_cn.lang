@@ -40,3 +40,5 @@ fluid.fluidMercury=水银桶
 
 entity.secretiveowner.goldenChicken.name=黄金鸡
 entity.goldenChicken.name=黄金鸡
+
+attribute.name.secretiveowner.GoldenChicken.wingSpeed=翅膀振速

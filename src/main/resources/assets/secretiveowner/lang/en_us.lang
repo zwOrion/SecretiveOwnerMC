@@ -40,3 +40,5 @@ fluid.fluidMercury=Mercury Bucket
 
 entity.secretiveowner.goldenChicken.name=Golden Chicken
 entity.goldenChicken.name=Golden Chicken Egg
+
+attribute.name.secretiveowner.GoldenChicken.wingSpeed=Wing Speed
