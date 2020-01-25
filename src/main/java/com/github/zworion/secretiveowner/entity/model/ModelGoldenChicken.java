@@ -1,5 +1,6 @@
 package com.github.zworion.secretiveowner.entity.model;
 
+import com.github.zworion.secretiveowner.SecretiveOwner;
 import com.github.zworion.secretiveowner.entity.EntityGoldenChicken;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
@@ -128,14 +129,34 @@ public class ModelGoldenChicken extends ModelBase {
         this.body.rotateAngleX = (float) (Math.PI / 2.0D);
         this.rightLeg.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
         this.leftLeg.rotateAngleX = -MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
-        this.rightWing.rotateAngleZ = 1.5F * getWingSpeed(entity, rotateFloat);
-        this.leftWing.rotateAngleZ = -1.5F * getWingSpeed(entity, rotateFloat);
+        //设置生物翅膀摆动角度
+        this.rightWing.rotateAngleZ = (1.5F * MathHelper.cos(getWingSpeed(entity, rotateFloat))+1.5F)*limbSwingAmount;
+        this.leftWing.rotateAngleZ = -this.rightWing.rotateAngleZ;
     }
-
-    protected float getWingSpeed(Entity entity, float rotateFloat)
-    {
-        return (float) (((EntityGoldenChicken) entity).getEntityAttribute(EntityGoldenChicken.wingSpeed)
-                .getAttributeValue() * rotateFloat);
+    /**
+     *
+     * @author ZWOrion
+     * @date 2020/1/25 14:28
+     * 获取生物的翅膀摆动速度
+     * @param entity
+     * @param rotateFloat
+     * @return float
+     */
+    protected float getWingSpeed(Entity entity, float rotateFloat) {
+        float wingSpeed = (float) (((EntityGoldenChicken) entity).getEntityAttribute(EntityGoldenChicken.wingSpeed).getAttributeValue() * rotateFloat);
+        switch ((Byte) entity.getDataManager().get(EntityGoldenChicken.dataParameter)) {
+            case 4:
+                return wingSpeed / 2;
+            case 3:
+                return wingSpeed / 4;
+            case 2:
+                return wingSpeed * 4;
+            case 1:
+                return wingSpeed * 2;
+            case 0:
+            default:
+                return wingSpeed;
+        }
     }
 
 }

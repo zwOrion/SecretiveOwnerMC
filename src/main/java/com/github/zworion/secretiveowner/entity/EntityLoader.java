@@ -53,7 +53,9 @@ public class EntityLoader {
                 .build());
         //注册对应的蛋(实体ID,主要颜色，次要颜色)
         EntityRegistry.registerEgg(new ResourceLocation(SecretiveOwner.MODID, "golden_chicken"), 0xffff66, 0x660000);
+        //生物群系数组
         Biome[] biomes = new Biome[]{Biomes.PLAINS,Biomes.BEACH,Biomes.BIRCH_FOREST,Biomes.DEFAULT};
+        //注册实体所属生物群系
         registerEntitySpawn(EntityGoldenChicken.class, 8, 2, 4, EnumCreatureType.CREATURE, biomes);
     }
 
@@ -83,6 +85,19 @@ public class EntityLoader {
         //注册实体模型
         RenderingRegistry.registerEntityRenderingHandler(entityClass, new EntityRenderFactory<>(render));
     }
+    /**
+     * 
+     * @author ZWOrion
+     * @date 2020/1/25 14:30
+     * 注册生物实体生成
+     * @param entityClass
+     * @param spawnWeight
+     * @param min
+     * @param max
+     * @param typeOfCreature
+     * @param biomes 
+     * @return void
+     */
     private static void registerEntitySpawn(Class<? extends Entity> entityClass, int spawnWeight, int min,
                                             int max, EnumCreatureType typeOfCreature, Biome[] biomes)
     {
