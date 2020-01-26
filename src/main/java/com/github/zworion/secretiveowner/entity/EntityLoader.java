@@ -3,6 +3,7 @@ package com.github.zworion.secretiveowner.entity;
 import com.github.zworion.secretiveowner.SecretiveOwner;
 import com.github.zworion.secretiveowner.entity.render.EntityRenderFactory;
 import com.github.zworion.secretiveowner.entity.render.RenderGoldenChicken;
+import com.github.zworion.secretiveowner.entity.render.RenderGoldenEgg;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
@@ -54,9 +55,15 @@ public class EntityLoader {
         //注册对应的蛋(实体ID,主要颜色，次要颜色)
         EntityRegistry.registerEgg(new ResourceLocation(SecretiveOwner.MODID, "golden_chicken"), 0xffff66, 0x660000);
         //生物群系数组
-        Biome[] biomes = new Biome[]{Biomes.PLAINS,Biomes.BEACH,Biomes.BIRCH_FOREST,Biomes.DEFAULT};
+        Biome[] biomes = new Biome[]{Biomes.PLAINS, Biomes.BEACH, Biomes.BIRCH_FOREST, Biomes.DEFAULT};
         //注册实体所属生物群系
         registerEntitySpawn(EntityGoldenChicken.class, 8, 2, 4, EnumCreatureType.CREATURE, biomes);
+        event.getRegistry().register(EntityEntryBuilder.create()
+                .entity(EntityGoldenEgg.class)
+                .id(new ResourceLocation(SecretiveOwner.MODID, "golden_egg"), nextID++)
+                .name("GoldenEgg")
+                .tracker(64, 10, true)
+                .build());
     }
 
     /**
@@ -69,6 +76,7 @@ public class EntityLoader {
     public static void registerRenders() {
         //注册黄金鸡模型
         registerEntityRender(EntityGoldenChicken.class, RenderGoldenChicken.class);
+        registerEntityRender(EntityGoldenEgg.class, RenderGoldenEgg.class);
     }
 
     /**
@@ -85,24 +93,22 @@ public class EntityLoader {
         //注册实体模型
         RenderingRegistry.registerEntityRenderingHandler(entityClass, new EntityRenderFactory<>(render));
     }
+
     /**
-     * 
-     * @author ZWOrion
-     * @date 2020/1/25 14:30
-     * 注册生物实体生成
      * @param entityClass
      * @param spawnWeight
      * @param min
      * @param max
      * @param typeOfCreature
-     * @param biomes 
+     * @param biomes
      * @return void
+     * @author ZWOrion
+     * @date 2020/1/25 14:30
+     * 注册生物实体生成
      */
     private static void registerEntitySpawn(Class<? extends Entity> entityClass, int spawnWeight, int min,
-                                            int max, EnumCreatureType typeOfCreature, Biome[] biomes)
-    {
-        if (EntityLiving.class.isAssignableFrom(entityClass))
-        {
+                                            int max, EnumCreatureType typeOfCreature, Biome[] biomes) {
+        if (EntityLiving.class.isAssignableFrom(entityClass)) {
             Class<? extends EntityLiving> entityLivingClass = entityClass.asSubclass(EntityLiving.class);
             EntityRegistry.addSpawn(entityLivingClass, spawnWeight, min, max, typeOfCreature, biomes);
         }
