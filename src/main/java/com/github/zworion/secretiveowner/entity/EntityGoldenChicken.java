@@ -1,5 +1,6 @@
 package com.github.zworion.secretiveowner.entity;
 
+import com.github.zworion.secretiveowner.SecretiveOwner;
 import com.github.zworion.secretiveowner.world.storage.loot.LootLoader;
 import net.minecraft.block.Block;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -9,16 +10,24 @@ import net.minecraft.entity.ai.attributes.RangedAttribute;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.passive.EntityChicken;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextComponentString;
+import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldServer;
+import net.minecraftforge.common.util.FakePlayer;
+import net.minecraftforge.common.util.FakePlayerFactory;
+import net.minecraftforge.event.world.ExplosionEvent;
 
 import javax.annotation.Nullable;
 
@@ -163,8 +172,12 @@ public class EntityGoldenChicken extends EntityChicken {
                         entity.setLocationAndAngles(entity.posX, entity.posY + 1, entity.posZ, entity.rotationYaw, entity.rotationPitch);
                         entity.world.setBlockState(entityPos, block.getDefaultState());
                         stack.setCount(stack.getCount() - 1);
+                        //FakePlayer fakePlayer = FakePlayerLoader.getNewFakePlayer((WorldServer)entity.world);
+                        //fakePlayer.inventory.setPickedItemStack(stack);
                         if (stack.getCount() <= 0) {
                             ((EntityItem) e).setDead();
+                        } else {
+                            ((EntityItem) e).setItem(stack);
                         }
                     }
                 }
