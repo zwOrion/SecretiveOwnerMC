@@ -6,11 +6,13 @@ import com.github.zworion.secretiveowner.block.fluid.BlockFluidMercury;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemMultiTexture;
 import net.minecraft.item.ItemStack;
 
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.registries.GameData;
 
 /**
  * 方块注册类
@@ -30,13 +32,18 @@ public final class BlockLoader {
      */
     public static Block fluidMercuryBlock = new BlockFluidMercury();
     /**
-     * 铁炉
+     * 金属炉
      */
-    public static Block ironFurnaceBlock = new BlockIronFurnace();
+    public static Block metalFurnaceBlock = new BlockMetalFurnace();
     /**
-     * 铁炉
+     * 金属炉对应物品方块
      */
-    public static Block goldFurnaceBlock = new BlockGoldFurnace();
+    public static ItemBlock metalFurnaceItemBlock = new ItemMultiTexture(metalFurnaceBlock, metalFurnaceBlock, new ItemMultiTexture.Mapper() {
+        @Override
+        public String apply(ItemStack var1) {
+            return BlockMetalFurnace.EnumMaterial.values()[var1.getMetadata() >> 3].getName();
+        }
+    });
 
     /**
      * @param event 方块注册事件
@@ -55,14 +62,9 @@ public final class BlockLoader {
         SecretiveOwner.logger.info("注册方块 >> {}", fluidMercuryBlock.getRegistryName());
         //注册水银方块
         event.getRegistry().register(fluidMercuryBlock);
-
-        SecretiveOwner.logger.info("注册方块 >> {}", ironFurnaceBlock.getRegistryName());
-        //注册铁熔炉方块
-        event.getRegistry().register(ironFurnaceBlock);
-
-        SecretiveOwner.logger.info("注册方块 >> {}", goldFurnaceBlock.getRegistryName());
-        //注册金熔炉方块
-        event.getRegistry().register(goldFurnaceBlock);
+        SecretiveOwner.logger.info("注册方块 >> {}", metalFurnaceBlock.getRegistryName());
+        //注册金属炉方块
+        event.getRegistry().register(metalFurnaceBlock);
     }
 
     /**
@@ -79,10 +81,10 @@ public final class BlockLoader {
         event.getRegistry().register(getBlockItem(grassBlock, "secretiveowner", "grass_block", 1048576));
         //注册流体的物品形式
         event.getRegistry().register(getBlockItem(fluidMercuryBlock, "secretiveowner", "fluid_Mercury"));
-        //注册铁熔炉的物品形式
-        event.getRegistry().register(getBlockItem(ironFurnaceBlock, SecretiveOwner.MODID, "iron_furnace"));
-        //注册金熔炉的物品形式
-        event.getRegistry().register(getBlockItem(goldFurnaceBlock, SecretiveOwner.MODID, "gold_furnace"));
+        //注册金属炉的物品形式
+        event.getRegistry().register(metalFurnaceItemBlock.setRegistryName("metal_furnace"));
+        //绑定金属炉和其对应物品方块的数据
+        GameData.getBlockItemMap().put(metalFurnaceBlock, metalFurnaceItemBlock);
     }
 
     /**

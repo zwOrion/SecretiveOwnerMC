@@ -40,9 +40,9 @@ public final class ModelMapper {
         //注册流体模型
         FluidLoader.registerRenders();
         //加载铁炉模型
-        registryModel(BlockLoader.ironFurnaceBlock);
+        registryModel(BlockLoader.metalFurnaceBlock, 0, "secretiveowner:iron_furnace");
         //加载金炉模型
-        registryModel(BlockLoader.goldFurnaceBlock);
+        registryModel(BlockLoader.metalFurnaceBlock, 8, "secretiveowner:gold_furnace");
     }
 
     /**
@@ -58,5 +58,19 @@ public final class ModelMapper {
         ModelResourceLocation modelResourceLocation = new ModelResourceLocation(block.getRegistryName(), "inventory");
         //加载方块资源模型
         ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(block), 0, modelResourceLocation);
+    }
+    /**
+     * @param block 方块实体
+     * @return void
+     * @author ZWOrion
+     * @date 2020/1/8 22:47
+     * 加载和处理方块模型
+     */
+    private static void registryModel(Block block,int metadata,String name) {
+        SecretiveOwner.logger.info("加载方块材质模型 >> {}", block.getRegistryName());
+        //获取方块模型资源路径(方块的注册名，固定字符串)（src/main/resources/assets/fmltutor/blockstates/<方块id>.json）
+        ModelResourceLocation modelResourceLocation = new ModelResourceLocation(name, "inventory");
+        //加载方块资源模型
+        ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(block), metadata, modelResourceLocation);
     }
 }

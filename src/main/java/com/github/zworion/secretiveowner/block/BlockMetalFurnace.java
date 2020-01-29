@@ -7,8 +7,10 @@ import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyDirection;
+import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -16,6 +18,8 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.IStringSerializable;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -24,9 +28,9 @@ import net.minecraft.world.World;
  * @author ZWOrion
  * @version 1.0.0
  * @date 2020/01/28 20:49
- * 铁炉
+ * 金属炉
  */
-public class BlockIronFurnace extends Block {
+public class BlockMetalFurnace extends Block {
     /**
      * 方向
      */
@@ -35,12 +39,16 @@ public class BlockIronFurnace extends Block {
      * 是否燃烧
      */
     public static final PropertyBool BURNING = PropertyBool.create("burning");
+    /**
+     * 金属材质
+     */
+    public static final PropertyEnum<EnumMaterial> MATERIAL = PropertyEnum.create("material", EnumMaterial.class);
 
-    public BlockIronFurnace() {
+    public BlockMetalFurnace() {
         //材料
         super(Material.IRON);
         //国际化键名
-        this.setTranslationKey("secretiveowner.ironFurnace");
+        this.setTranslationKey("secretiveowner.metalFurnace");
         //硬度
         this.setHardness(2.5F);
         //声音类型
@@ -48,9 +56,11 @@ public class BlockIronFurnace extends Block {
         //创造模式物品栏
         this.setCreativeTab(SecretiveOwnerCreativeTab.SO_TAB);
         //注册名
-        this.setRegistryName(SecretiveOwner.MODID, "iron_furnace");
+        this.setRegistryName(SecretiveOwner.MODID, "metal_furnace");
         //默认BlockState
-        this.setDefaultState(this.getBlockState().getBaseState().withProperty(FACING, EnumFacing.NORTH)
+        this.setDefaultState(this.getBlockState().getBaseState()
+                .withProperty(FACING, EnumFacing.NORTH)
+                .withProperty(MATERIAL, EnumMaterial.IRON)
                 .withProperty(BURNING, Boolean.FALSE));
     }
 
@@ -62,7 +72,7 @@ public class BlockIronFurnace extends Block {
      */
     @Override
     protected BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, FACING, BURNING);
+        return new BlockStateContainer(this, FACING, BURNING, MATERIAL);
     }
 
     /**
@@ -75,7 +85,11 @@ public class BlockIronFurnace extends Block {
     public IBlockState getStateFromMeta(int meta) {
         EnumFacing facing = EnumFacing.byHorizontalIndex(meta & 3);
         Boolean burning = Boolean.valueOf((meta & 4) != 0);
-        return this.getDefaultState().withProperty(FACING, facing).withProperty(BURNING, burning);
+        EnumMaterial material = EnumMaterial.values()[meta >> 3];
+        return this.getDefaultState()
+                .withProperty(FACING, facing)
+                .withProperty(BURNING, burning)
+                .withProperty(MATERIAL, material);
     }
 
     /**
@@ -87,7 +101,8 @@ public class BlockIronFurnace extends Block {
     public int getMetaFromState(IBlockState state) {
         int facing = state.getValue(FACING).getHorizontalIndex();
         int burning = state.getValue(BURNING).booleanValue() ? 4 : 0;
-        return facing | burning;
+        int material = state.getValue(MATERIAL).ordinal() << 3;
+        return facing | burning | material;
     }
 
     /**
@@ -154,5 +169,45 @@ public class BlockIronFurnace extends Block {
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
         worldIn.setBlockState(pos, state.cycleProperty(BURNING));
         return true;
+    }
+
+    /**
+     * returns a list of blocks with the same ID, but different meta (eg: wood returns 4 blocks)
+     *
+     * @param itemIn
+     * @param items
+     */
+    @Override
+    public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> items) {
+        items.add(new ItemStack(this, 1, 0));
+        items.add(new ItemStack(this, 1, 8));
+    }
+
+
+    public enum EnumMaterial implements IStringSerializable {
+        /**
+         * 铁
+         */
+        IRON("iron"),
+        /**
+         * 金
+         */
+        GOLD("gold");
+
+        private String name;
+
+        EnumMaterial(String material) {
+            this.name = material;
+        }
+
+        @Override
+        public String getName() {
+            return this.name;
+        }
+
+        @Override
+        public String toString() {
+            return this.name;
+        }
     }
 }

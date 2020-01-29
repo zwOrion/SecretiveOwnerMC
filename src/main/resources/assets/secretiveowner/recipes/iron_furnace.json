@@ -11,6 +11,7 @@
         }
     },
     "result": {
-        "item": "secretiveowner:iron_furnace"
+        "item": "secretiveowner:metal_furnace",
+        "data": 0
     }
 }
