@@ -39,6 +39,10 @@ public final class ModelMapper {
         registryModel(BlockLoader.grassBlock);
         //注册流体模型
         FluidLoader.registerRenders();
+        //加载铁炉模型
+        registryModel(BlockLoader.ironFurnaceBlock);
+        //加载金炉模型
+        registryModel(BlockLoader.goldFurnaceBlock);
     }
 
     /**

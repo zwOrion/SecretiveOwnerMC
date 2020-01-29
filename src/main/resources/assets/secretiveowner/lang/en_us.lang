@@ -8,6 +8,8 @@ item.secretiveowner.redStonePickaxe.name=Red Stone Pickaxe
 item.secretiveowner.redStoneApple.name=Red Stone Apple
 
 tile.secretiveowner.grassBlock.name=Grass Block
+tile.secretiveowner.ironFurnace.name=Iron Furnace
+tile.secretiveowner.goldFurnace.name=Gold Furnace
 tile.fluidMercury.name=Mercury
 
 item.secretiveowner.helmet.name=Redstone Helmet

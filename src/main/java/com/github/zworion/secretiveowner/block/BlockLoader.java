@@ -29,6 +29,14 @@ public final class BlockLoader {
      * 水银液体对应方块
      */
     public static Block fluidMercuryBlock = new BlockFluidMercury();
+    /**
+     * 铁炉
+     */
+    public static Block ironFurnaceBlock = new BlockIronFurnace();
+    /**
+     * 铁炉
+     */
+    public static Block goldFurnaceBlock = new BlockGoldFurnace();
 
     /**
      * @param event 方块注册事件
@@ -39,12 +47,22 @@ public final class BlockLoader {
      */
     @SubscribeEvent
     public static void registerBlock(RegistryEvent.Register<Block> event) {
+
         SecretiveOwner.logger.info("注册方块 >> {}", grassBlock.getRegistryName());
         //注册草方块
         event.getRegistry().register(grassBlock);
+
         SecretiveOwner.logger.info("注册方块 >> {}", fluidMercuryBlock.getRegistryName());
         //注册水银方块
         event.getRegistry().register(fluidMercuryBlock);
+
+        SecretiveOwner.logger.info("注册方块 >> {}", ironFurnaceBlock.getRegistryName());
+        //注册铁熔炉方块
+        event.getRegistry().register(ironFurnaceBlock);
+
+        SecretiveOwner.logger.info("注册方块 >> {}", goldFurnaceBlock.getRegistryName());
+        //注册金熔炉方块
+        event.getRegistry().register(goldFurnaceBlock);
     }
 
     /**
@@ -59,7 +77,12 @@ public final class BlockLoader {
         SecretiveOwner.logger.info("注册方块物品形式 >> {}", grassBlock.getRegistryName());
         //注册草方块的物品形式
         event.getRegistry().register(getBlockItem(grassBlock, "secretiveowner", "grass_block", 1048576));
+        //注册流体的物品形式
         event.getRegistry().register(getBlockItem(fluidMercuryBlock, "secretiveowner", "fluid_Mercury"));
+        //注册铁熔炉的物品形式
+        event.getRegistry().register(getBlockItem(ironFurnaceBlock, SecretiveOwner.MODID, "iron_furnace"));
+        //注册金熔炉的物品形式
+        event.getRegistry().register(getBlockItem(goldFurnaceBlock, SecretiveOwner.MODID, "gold_furnace"));
     }
 
     /**
