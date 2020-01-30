@@ -3,15 +3,23 @@ package com.github.zworion.secretiveowner.block;
 import com.github.zworion.secretiveowner.SecretiveOwner;
 
 import com.github.zworion.secretiveowner.block.fluid.BlockFluidMercury;
+import com.github.zworion.secretiveowner.tileentity.TileEntityLoader;
+import com.github.zworion.secretiveowner.tileentity.TileEntityMetalFurnace;
 import net.minecraft.block.Block;
+import net.minecraft.client.renderer.block.statemap.IStateMapper;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemMultiTexture;
 import net.minecraft.item.ItemStack;
 
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.registries.GameData;
 
 /**
@@ -62,9 +70,12 @@ public final class BlockLoader {
         SecretiveOwner.logger.info("注册方块 >> {}", fluidMercuryBlock.getRegistryName());
         //注册水银方块
         event.getRegistry().register(fluidMercuryBlock);
+
         SecretiveOwner.logger.info("注册方块 >> {}", metalFurnaceBlock.getRegistryName());
         //注册金属炉方块
         event.getRegistry().register(metalFurnaceBlock);
+        //注册金属炉方块对应的TileEntity
+        TileEntityLoader.registerTileEntity(TileEntityMetalFurnace.class, metalFurnaceBlock);
     }
 
     /**
@@ -122,4 +133,5 @@ public final class BlockLoader {
 
         return item;
     }
+
 }

@@ -1,8 +1,0 @@
-{
-    "parent": "block/orientable",
-    "textures": {
-        "top": "secretiveowner:blocks/iron_furnace_side",
-        "front": "secretiveowner:blocks/iron_furnace",
-        "side": "secretiveowner:blocks/iron_furnace_side"
-    }
-}

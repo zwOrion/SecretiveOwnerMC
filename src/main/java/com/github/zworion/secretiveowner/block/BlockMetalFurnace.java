@@ -2,9 +2,12 @@ package com.github.zworion.secretiveowner.block;
 
 import com.github.zworion.secretiveowner.SecretiveOwner;
 import com.github.zworion.secretiveowner.creativetab.SecretiveOwnerCreativeTab;
+import com.github.zworion.secretiveowner.tileentity.TileEntityMetalFurnace;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockContainer;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.properties.PropertyEnum;
@@ -16,13 +19,18 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityFurnace;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.IStringSerializable;
-import net.minecraft.util.NonNullList;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.IItemHandlerModifiable;
+import net.minecraftforge.items.ItemStackHandler;
+
+import javax.annotation.Nullable;
+import java.util.Collection;
 
 /**
  * @author ZWOrion
@@ -30,7 +38,7 @@ import net.minecraft.world.World;
  * @date 2020/01/28 20:49
  * 金属炉
  */
-public class BlockMetalFurnace extends Block {
+public class BlockMetalFurnace extends BlockContainerState{
     /**
      * 方向
      */
@@ -167,8 +175,42 @@ public class BlockMetalFurnace extends Block {
      */
     @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-        worldIn.setBlockState(pos, state.cycleProperty(BURNING));
+        //worldIn.setBlockState(pos, state.cycleProperty(BURNING));
+        if(!worldIn.isRemote){
+            TileEntityMetalFurnace tileEntityMetalFurnace = (TileEntityMetalFurnace)worldIn.getTileEntity(pos);
+            ItemStackHandler up = (ItemStackHandler) tileEntityMetalFurnace.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, EnumFacing.UP);
+            ItemStackHandler down = (ItemStackHandler) tileEntityMetalFurnace.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, EnumFacing.DOWN);
+            String msg = String.format("Up: %s,Down: %s", up.getStackInSlot(0),down.getStackInSlot(0));
+            playerIn.sendMessage(new TextComponentString(msg));
+        }
         return true;
+    }
+
+    /**
+     * Called serverside after this block is replaced with another in Chunk, but before the Tile Entity is updated
+     *
+     * @param worldIn
+     * @param pos
+     * @param state
+     */
+    @Override
+    public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
+        TileEntityMetalFurnace tileEntityMetalFurnace = (TileEntityMetalFurnace)worldIn.getTileEntity(pos);
+        IItemHandler up = tileEntityMetalFurnace.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, EnumFacing.UP);
+        IItemHandler down = tileEntityMetalFurnace.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, EnumFacing.DOWN);
+        for (int i = up.getSlots()-1;i>=0;i--){
+            if(up.getStackInSlot(i)!=null){
+                Block.spawnAsEntity(worldIn, pos, up.getStackInSlot(i));
+                ((IItemHandlerModifiable)up).setStackInSlot(i, ItemStack.EMPTY);
+            }
+        }
+        for (int i=down.getSlots()-1;i>0;i--){
+            if(down.getStackInSlot(i)!=null){
+                Block.spawnAsEntity(worldIn, pos, down.getStackInSlot(i));
+                ((IItemHandlerModifiable)down).setStackInSlot(i, ItemStack.EMPTY);
+            }
+        }
+        super.breakBlock(worldIn, pos, state);
     }
 
     /**
@@ -182,7 +224,6 @@ public class BlockMetalFurnace extends Block {
         items.add(new ItemStack(this, 1, 0));
         items.add(new ItemStack(this, 1, 8));
     }
-
 
     public enum EnumMaterial implements IStringSerializable {
         /**
@@ -210,4 +251,37 @@ public class BlockMetalFurnace extends Block {
             return this.name;
         }
     }
+
+    /**
+     * Called throughout the code as a replacement for block instanceof BlockContainer
+     * Moving this to the Block base class allows for mods that wish to extend vanilla
+     * blocks, and also want to have a tile entity on that block, may.
+     * <p>
+     * Return true from this function to specify this block has a tile entity.
+     *
+     * @param state State of the current block
+     * @return True if block has a tile entity, false otherwise
+     */
+    @Override
+    public boolean hasTileEntity(IBlockState state) {
+        return true;
+    }
+
+    /**
+     * Returns a new instance of a block's tile entity class. Called on placing the block.
+     *
+     * @param worldIn
+     * @param meta
+     */
+    @Nullable
+    @Override
+    public TileEntity createNewTileEntity(World worldIn, int meta) {
+        return new TileEntityMetalFurnace();
+    }
+
+   @Override
+    public EnumBlockRenderType getRenderType(IBlockState state) {
+        return EnumBlockRenderType.MODEL;
+    }
+
 }
